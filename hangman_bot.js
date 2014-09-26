@@ -4,9 +4,11 @@ var fs = require('fs');
 var file = process.argv[2];
 
 var config = {
-channels: ["#osuosc-hangman", " #bayareainterns"],
-					server: "irc.freenode.net",
-					botName: "Hangman-Botman"
+	channels: ["#osuosc-hangman", " #bayareainterns"],
+	server: "irc.freenode.net",
+	botName: "Hangman-Botman",
+	floodProtection: true,
+	floodProtectionDelay: 50
 };
 
 var bot = new irc.Client(config.server, config.botName, {
