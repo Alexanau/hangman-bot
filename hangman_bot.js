@@ -4,16 +4,16 @@ var fs = require('fs');
 var file = process.argv[2];
 
 var config = {
-	channels: ["#osuosc-hangman", " #bayareainterns"],
+	channels: ["#osuosc-hangman-testing"],
 	server: "irc.freenode.net",
-	botName: "Hangman-Botman",
-	floodProtection: true,
-	floodProtectionDelay: 50
+	botName: "Hangman-Botman1"
 };
 
 var bot = new irc.Client(config.server, config.botName, {
 channels: config.channels
 });
+
+bot.activateFloodProtection(500);
 
 var game = {};
 var word = {};
@@ -56,6 +56,7 @@ var chooseWord = function(channel) {
 };
 
 var drawHangman = function(channel) {
+	
 	bot.say(channel, "_________");
 	bot.say(channel, "|         |");
 	if (manState[channel] > 0) {
@@ -91,7 +92,7 @@ var wrongGuess = function(channel) {
 };
 
 bot.addListener("message", function(from, to, text, message) {
-	if (text.toLowerCase().substring(0, 14) == '.start hangman') {
+	if (text.toLowerCase().substring(0,14) == '.start hangman') {
 		if (!game[to]) chooseWord(to);
 		else bot.say(to, "A game is already occurring!");
 	}
